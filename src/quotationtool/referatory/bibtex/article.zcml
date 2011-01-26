@@ -1,0 +1,36 @@
+<configure
+    xmlns:zope='http://namespaces.zope.org/zope'
+    xmlns:browser='http://namespaces.zope.org/browser'
+    xmlns:z3c='http://namespaces.zope.org/z3c'
+    xmlns:quotationtool='http://namespaces.zope.org/quotationtool'
+    i18n_domain='quotationtool'>
+
+  <zope:interface
+      interface=".iarticle.IArticle"
+      type="zope.app.content.interfaces.IContentType"
+      name="Article (BibTeX)"
+      />
+  
+  <zope:class
+      class=".article.Article">
+    <zope:require
+	like_class="quotationtool.referatory.reference.Reference"
+	/>
+    <zope:factory
+	id="quotationtool.referatory.bibtex.article.Article"
+	title="[quotationtool.referatory.bibtex.article.Article-title]
+	       Article"
+	description="[quotationtool.referatory.bibtex.article.Article-desc]
+		     Create a new Article-Reference"
+	/>
+    <zope:allow
+	interface=".iarticle.IArticle"
+	/>
+    <zope:require
+	permission="quotationtool.referatory.AddReference"
+	set_schema=".iarticle.IArticle"
+	/>
+  </zope:class>
+
+
+</configure>

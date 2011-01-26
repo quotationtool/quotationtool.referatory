@@ -1,0 +1,34 @@
+<configure
+    xmlns:zope='http://namespaces.zope.org/zope'
+    xmlns:browser='http://namespaces.zope.org/browser'
+    xmlns:z3c='http://namespaces.zope.org/z3c'
+    xmlns:quotationtool='http://namespaces.zope.org/quotationtool'
+    i18n_domain='quotationtool'>
+
+  <zope:interface
+      interface=".ibook.IBook"
+      type="zope.app.content.interfaces.IContentType"
+      name="Book (BibTeX)"
+      />
+  
+  <zope:class
+      class=".book.Book">
+    <zope:require
+	like_class="quotationtool.referatory.reference.Reference"
+	/>
+    <zope:factory
+	id="quotationtool.referatory.bibtex.book.Book"
+	title="[bibtex-book-factory-title] Book"
+	description="[bibtex-book-factory-desc] 
+		     Create a new Book-Reference"
+	/>
+    <zope:allow
+	interface=".ibook.IBook"
+	/>
+    <zope:require
+	permission="quotationtool.referatory.AddReference"
+	set_schema=".ibook.IBook"
+	/>
+  </zope:class>
+
+</configure>

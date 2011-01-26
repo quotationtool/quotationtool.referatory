@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="quotationtool">
+
+  <permission
+      id="quotationtool.referatory.AddReference"
+      title="[add-reference-permission-title] Add a reference or uniform title"
+      />
+
+  <permission
+      id="quotationtool.referatory.EditReference"
+      title="[edit-reference-permission-title] Edit content of the referatory"
+      />
+      
+</configure>

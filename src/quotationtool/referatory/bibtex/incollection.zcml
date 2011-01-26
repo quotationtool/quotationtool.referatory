@@ -1,0 +1,35 @@
+<configure
+    xmlns:zope='http://namespaces.zope.org/zope'
+    xmlns:browser='http://namespaces.zope.org/browser'
+    xmlns:z3c='http://namespaces.zope.org/z3c'
+    xmlns:quotationtool='http://namespaces.zope.org/quotationtool'
+    i18n_domain='quotationtool'>
+
+  <zope:interface
+      interface=".iincollection.IIncollection"
+      type="zope.app.content.interfaces.IContentType"
+      name="Incollection (BibTeX)"
+      />
+  
+  <zope:class
+      class=".incollection.Incollection">
+    <zope:require
+	like_class="quotationtool.referatory.reference.Reference"
+	/>
+    <zope:factory
+	id="quotationtool.referatory.bibtex.incollection.Incollection"
+	title="[quotationtool.referatory.bibtex.incollection.Incollection-title] 
+	       Incollection"
+	description="[quotationtool.referatory.bibtex.incollection.Incollection-desc] 
+		     Create a new Incollection-Reference"
+	/>
+    <zope:allow
+	interface=".iincollection.IIncollection"
+	/>
+    <zope:require
+	permission="quotationtool.referatory.AddReference"
+	set_schema=".iincollection.IIncollection"
+	/>
+  </zope:class>
+
+</configure>

@@ -1,0 +1,190 @@
+<configure
+    xmlns='http://namespaces.zope.org/zope'
+    xmlns:i18n='http://namespaces.zope.org/i18n'
+    i18n_domain="quotationtool">
+
+  <include file="dependencies.zcml"/>
+
+  <include file="permissions.zcml" />
+  <!-- include in your app
+  <include file="roles.zcml" />
+  -->
+
+  <!-- IReferatory -->
+  <interface
+      interface=".interfaces.IReferatory"
+      type="zope.app.content.interfaces.IContentType"
+      />
+
+  <class class=".referatory.Referatory">
+    <implements
+        interface="zope.annotation.interfaces.IAttributeAnnotatable"
+	/>
+    <!--implements
+	interface="zope.dublincore.interfaces.IZopeDublinCoreAnnotatable"
+	/-->
+    <allow
+        interface="zope.container.interfaces.IReadContainer" 
+        />
+    <require
+        permission="zope.ManageContent"
+        interface="zope.container.interfaces.IWriteContainer"
+        />
+    <allow
+	interface=".interfaces.IReferatory"
+	/>
+    <require
+        permission="zope.ManageSite"
+	set_schema=".interfaces.IReferatory"
+	/>
+  </class>
+
+  <!--subscriber handler=".referatory.createReferatory"/-->
+
+
+  <!-- IUniformTitleContainer -->
+  <interface
+      interface=".interfaces.IUniformTitleContainer"
+      type="zope.app.content.interfaces.IContentType"
+      />
+
+  <class class=".uniformtitlecontainer.UniformTitleContainer">
+    <implements
+        interface="zope.annotation.interfaces.IAttributeAnnotatable"
+	/>
+    <!--implements
+	interface="zope.dublincore.interfaces.IZopeDublinCoreAnnotatable"
+	/-->
+    <allow
+	interface="zope.container.interfaces.IReadContainer" 
+        />
+    <require
+        permission="zope.ManageContent"
+        interface="zope.container.interfaces.IWriteContainer"
+        />
+    <allow
+	interface=".interfaces.IUniformTitleContainer"
+	/>
+    <require
+        permission="zope.ManageSite"
+	set_schema=".interfaces.IUniformTitleContainer"
+	/>
+  </class>
+
+  <!--subscriber handler=".uniformtitlecontainer.createUniformTitleContainer"/-->
+
+  <!-- IReference -->
+
+  <!--interface
+      interface=".interfaces.IReference"
+      type="zope.app.content.interfaces.IContentType"
+      /-->
+
+  <!-- we provide this for inheritance -->
+  <class
+      class=".reference.Reference">
+    <implements
+        interface="zope.location.interfaces.ILocation"
+	/>
+    <implements
+	interface="zope.annotation.interfaces.IAttributeAnnotatable"
+	/>
+    <!--implements
+	interface="zope.dublincore.interfaces.IZopeDublinCoreAnnotatable"
+	/-->
+    <allow
+	interface="zope.annotation.interfaces.IAttributeAnnotatable"
+	/>
+    <require
+	permission="zope.ManageContent"
+	set_schema="zope.annotation.interfaces.IAttributeAnnotatable"
+	/>
+    <allow
+	interface=".interfaces.IReference"
+	/>
+    <require
+	permission="zope.ManageContent"
+	set_schema=".interfaces.IReference"
+	/>
+  </class>
+
+
+  <!-- IUniformTitle -->
+
+  <interface
+      interface=".interfaces.IUniformTitle"
+      type="zope.app.content.interfaces.IContentType"
+      name="Uniform Title"
+      />
+
+  <class class=".uniformtitle.UniformTitle">
+    <implements
+        interface="zope.location.interfaces.ILocation"
+	/>
+    <implements
+	interface="zope.annotation.interfaces.IAttributeAnnotatable"
+	/>
+    <!--implements
+	interface="zope.dublincore.interfaces.IZopeDublinCoreAnnotatable"
+	/-->
+    <allow
+	interface="zope.annotation.interfaces.IAttributeAnnotatable"
+	/>
+    <require
+	permission="zope.ManageContent"
+	set_schema="zope.annotation.interfaces.IAttributeAnnotatable"
+	/>
+    <allow
+	interface=".interfaces.IUniformTitle"
+	/>
+    <require
+	permission="zope.ManageContent"
+	set_schema=".interfaces.IUniformTitle"
+	/>
+  </class>
+
+  
+  <!-- relation catalog -->
+
+  <!--class 
+      class=".relation.ReferatoryCatalog">
+    <allow
+	interface="zc.relation.interfaces.ICatalog"
+	/>
+    <require
+	permission="zope.View"
+	set_schema="zc.relation.interfaces.ICatalog"
+	/>
+  </class-->
+
+  <!--subscriber
+      handler=".relation.indexSubscriber"
+      />
+  <subscriber
+      handler=".relation.unindexSubscriber"
+      />
+
+  <subscriber
+      handler=".relation.createReferatoryCatalog"/-->
+
+  <!-- relation index -->
+
+  <!--subscriber
+      handler=".relation.addRelationIndex"/-->
+  
+  <!-- search catalog -->
+
+  <!--subscriber handler=".indexing.createReferatoryCatalog"/-->
+
+  <!--subscriber handler=".indexing.createUniformTitleCatalog"/-->
+
+  <adapter
+      factory=".indexing.UniformTitleIndexer"
+      for=".interfaces.IUniformTitle"
+      provides=".interfaces.IUniformTitleIndexCatalog"
+      />
+
+
+  <include package=".bibtex"/>
+
+</configure>
